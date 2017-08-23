@@ -6,23 +6,62 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      currentPage: "home",
+      currentPage: "Home",
     }
+  }
+
+  handleClick(newLocation) {
+    // TODO: this will take in the change from the nav bar and change the state of currentPage. in Navbar bar what will change will be the className="active" will change to
+    // current state and the div showing the main body will update to match the active nav button
+    this.setState({
+      currentPage: newLocation,
+    })
   }
   render() {
     return (
       <div className="App">
         <div className="container-fluid">
-          <Navbar />
+          <Navbar currentPage={this.state.currentPage} onClick={(i) => this.handleClick(i)}/>
         </div>
-        <TrackBody />
+        <TrackBody showWhich = {this.state.currentPage} />
       </div>
     );
   }
 }
 
 
+
 class Navbar extends Component {
+  constructor(){
+    super();
+    this.state = {
+      navLocs: [
+          {name: "Home", desc:"navbar-home"},
+          {name: "About", desc:"navbar-about"},
+          {name: "Contact", desc: "navbar-contact"}
+      ]
+    }
+  }
+
+  renderNavClicker(i){
+    // TODO:  there should be an onClick in this function that goes to the parent with the name of the location
+  return (
+    <li
+      id={this.state.navLocs[i].desc}
+      className={this.isActive(i)}
+      onClick={() => this.props.onClick(this.state.navLocs[i].name)}>
+        <a href="#">{this.state.navLocs[i].name}</a>
+    </li>
+  )
+}
+
+ isActive(i) {
+ if(this.state.navLocs[i].name == this.props.currentPage){
+   return  "'active nav-item'";
+ } else {
+   return "'nav-item'"
+ }
+}
   render() {
     return(
       <nav className="navbar navbar-inverse ">
@@ -38,9 +77,9 @@ class Navbar extends Component {
           </div>
           <div id="navbar" className="collapse navbar-collapse">
             <ul className="nav navbar-nav navbar-right">
-              <li id="navbar-home" className="active"><a href="#">Home</a></li>
-              <li id="navbar-about"><a href="#about">About</a></li>
-              <li id="navbar-contact"><a href="#contact">Contact</a></li>
+              {this.renderNavClicker(0)}
+              {this.renderNavClicker(1)}
+              {this.renderNavClicker(2)}
             </ul>
           </div>
         </div>
@@ -52,7 +91,7 @@ class Navbar extends Component {
 class TrackBody extends Component {
   render() {
     return(
-      <div className = "container-fluid">
+      <div className = "container-fluid" >
         <div className="col-xs-12 co-sm-12 col-md-10">
           <div className="pull-left" >
             <img src="http://via.placeholder.com/350x350"/>
