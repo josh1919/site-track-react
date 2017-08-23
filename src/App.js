@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
@@ -23,7 +22,7 @@ class App extends Component {
         <div className="container-fluid">
           <Navbar currentPage={this.state.currentPage} onClick={(i) => this.handleClick(i)}/>
         </div>
-        <TrackBody showWhich = {this.state.currentPage} />
+        <TrackBody currentlyShowing = {this.state.currentPage} />
       </div>
     );
   }
@@ -50,13 +49,13 @@ class Navbar extends Component {
       id={this.state.navLocs[i].desc}
       className={this.isActive(i)}
       onClick={() => this.props.onClick(this.state.navLocs[i].name)}>
-        <a href="#">{this.state.navLocs[i].name}</a>
+        <a>{this.state.navLocs[i].name}</a>
     </li>
   )
 }
 
  isActive(i) {
- if(this.state.navLocs[i].name == this.props.currentPage){
+ if(this.state.navLocs[i].name === this.props.currentPage){
    return  "'active nav-item'";
  } else {
    return "'nav-item'"
@@ -89,30 +88,77 @@ class Navbar extends Component {
 }
 
 class TrackBody extends Component {
+  visibilityChooser(testLocation) {
+    if(this.props.currentlyShowing === testLocation){
+        return "container-fluid";
+    }  else { //it eauals Home or in the unlikely event of anything else
+       return "container-fluid hidden";
+     }
+  };
   render() {
     return(
-      <div className = "container-fluid" >
-        <div className="col-xs-12 co-sm-12 col-md-10">
-          <div className="pull-left" >
-            <img src="http://via.placeholder.com/350x350"/>
+      <div>
+        <div id="body-home" className={this.visibilityChooser("Home")} >
+          <div className="col-xs-12 co-sm-12 col-md-10 col-md-offset-1">
+            <h1>Home</h1>
+            <div className="row">
+              <div className="col-md-6" >
+                <img src="http://via.placeholder.com/350x350" alt="Joe"/>
+              </div>
+              <div className="col-md-6">
+              <p className="lead">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
+            </div>
+            </div>
           </div>
-          <p className="lead">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-            in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum.
-          </p>
+          <div className="col-xs-12">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+              in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+              in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+              mollit anim id est laborum.
+            </p>
+          </div>
         </div>
-        <div className="col-xs-12">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-            in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-            in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-            mollit anim id est laborum.
-          </p>
+        <div id="body-about" className={this.visibilityChooser("About")}>
+          <div className="col-xs-12 co-sm-12 col-md-10">
+            <h2>About</h2>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
+                in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                mollit anim id est laborum.
+              </p>
+          </div>
+        </div>
+
+        <div id="body-contact" className={this.visibilityChooser("Contact")}>
+          <div className="col-xs-12 co-sm-12 col-md-10">
+            <h2>Contact</h2>
+              <form action="/action_page.php">
+                First name:
+                <input type="text" name="firstname" />
+                <br />
+                Last name:
+                <input type="text" name="lastname" />
+                <br />
+                email: <input type="email" name="email" />
+                <br />
+                Phone: <input type="tel" name="phone-number" />
+                <br/><br/>
+                <input type="submit" value="Submit" />
+              </form>
+          </div>
         </div>
       </div>
     )
