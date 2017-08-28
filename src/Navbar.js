@@ -1,8 +1,38 @@
 import React, { Component } from 'react';
 
 class Navbar extends Component {
-  render() { 
+  constructor(){
+    super();
+    this.state = {
+      navLocs: [
+        {name: "Home", desc:"navbar-home"},
+        {name: "About", desc:"navbar-about"},
+        {name: "Contact", desc: "navbar-contact"}
+      ]
+    }
+  }
+
+  renderNavClicker(i){
+    // TODO:  there should be an onClick in this function that goes to the parent with the name of the location
     return (
+      <li
+        id={this.state.navLocs[i].desc}
+        className={this.isActive(i)}
+        onClick={() => this.props.onClick(this.state.navLocs[i].name)}>
+        <a>{this.state.navLocs[i].name}</a>
+      </li>
+    )
+  }
+
+  isActive(i) {
+    if(this.state.navLocs[i].name === this.props.currentPage){
+      return  "'active nav-item'";
+    } else {
+      return "'nav-item'"
+    }
+  }
+  render() {
+    return(
       <nav className="navbar navbar-inverse ">
         <div className="container">
           <div className="navbar-header">
@@ -16,14 +46,14 @@ class Navbar extends Component {
           </div>
           <div id="navbar" className="collapse navbar-collapse">
             <ul className="nav navbar-nav navbar-right">
-              <li id="navbar-home" className="active"><a href="#">Home</a></li>
-              <li id="navbar-about"><a href="#about">About</a></li>
-              <li id="navbar-contact"><a href="#contact">Contact</a></li>
+              {this.renderNavClicker(0)}
+              {this.renderNavClicker(1)}
+              {this.renderNavClicker(2)}
             </ul>
           </div>
         </div>
       </nav>
-    );
+    )
   }
 }
 
